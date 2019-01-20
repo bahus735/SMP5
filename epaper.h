@@ -82,6 +82,7 @@ void DrawCircle(uint8_t *Buffer, uint8_t x, uint8_t y, uint8_t radius, uint8_t c
 void DrawFilledCircle_EP(uint8_t *frame_buffer, uint8_t x, uint8_t y, uint8_t radius, uint8_t color);
 void DrawCharAt_EP(uint8_t *Buffer, uint8_t x, uint8_t y, uint8_t ascii_char,const uint8_t *fontsize,const uint8_t* font, uint8_t color);
 void DrawStringAt_EP(uint8_t *Buffer, uint8_t x, uint8_t y, char *text,const uint8_t *fontsize,const uint8_t* font, uint8_t color);
+void ImageAt(uint8_t *Buffer, uint8_t x, uint8_t y,const uint8_t *imagesize,const uint8_t* image, uint8_t color);
 //void Write_Text_EP(uint8_t *Buffor/*int8_t *x_pos,uint8_t *y_pos*/,const char *text,uint8_t* font[]);
 
 #endif

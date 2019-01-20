@@ -456,6 +456,27 @@ void DrawCharAt_EP(uint8_t *Buffer, uint8_t x, uint8_t y, uint8_t ascii_char,con
         }
     }
 }
+
+void ImageAt(uint8_t *Buffer, uint8_t x, uint8_t y,const uint8_t *imagesize,const uint8_t* image, uint8_t color) {
+    int i, j;
+	
+
+    const uint8_t* ptr = &image[0];
+ 
+    for (j = 0; j < imagesize[0]; j++) {
+        for (i = 0; i <imagesize[1]; i++) {
+            if (*ptr & (0x80 >> (i % 8))) {
+                SetPixel_EP(Buffer, x + i, y + j, color);
+            }
+            if (i % 8 == 7) {
+                ptr++;
+            }
+        }
+        if (imagesize[1] % 8 != 0) {
+            ptr++;
+        }
+    }
+}
  
 /**
 *  @brief: this displays a string on the frame buffer but not refresh
