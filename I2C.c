@@ -80,7 +80,7 @@ void i2c_WriteRegister( uint8_t SlaveAddress,uint8_t RegisterAddress, uint8_t da
 
 	i2c_Stop();
 
-	delay(50);
+	mywait(50);
 
 	/*
 	i2c_RepeatedStart(i2c);
@@ -119,13 +119,13 @@ uint8_t i2c_ReadRegister( uint8_t SlaveAddress,uint8_t RegisterAddress){
 	i2c_Wait();
 	i2c_Stop();
 	res = i2c_ReadByte();
-	delay(50);
+	mywait(50);
 
 	return res;
 }
 
 
-
+/*
 void i2c_ReadMultRegister( uint8_t SlaveAddress,uint8_t RegisterAddress,uint8_t n_data, uint8_t *res){
 	uint8_t i = 0;
 
@@ -137,7 +137,7 @@ void i2c_ReadMultRegister( uint8_t SlaveAddress,uint8_t RegisterAddress,uint8_t 
 	i2c_Wait();
 
 	i2c_RepeatedStart();
-
+d
 	i2c_WriteByte( ((SlaveAddress << 1) | I2C_READ));
 	i2c_Wait();
 
@@ -164,5 +164,7 @@ void i2c_ReadMultRegister( uint8_t SlaveAddress,uint8_t RegisterAddress,uint8_t 
 
 	*res = i2c_ReadByte();
 
-	delay(50);
+	mywait(50);
+
 }
+*/

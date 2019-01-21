@@ -457,6 +457,11 @@
               <FileType>1</FileType>
               <FilePath>.\I2C.c</FilePath>
             </File>
+            <File>
+              <FileName>stml75.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\stml75.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

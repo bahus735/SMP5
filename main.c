@@ -4,6 +4,7 @@
 #define BlueLED 2
 #include "leds.h"
 #include "spi.h"
+#include "i2c.h"
 #include "epaper.h"
 #include "font8x8.h"
 #include "display.h"
@@ -23,12 +24,12 @@ uint8_t recived=0x00 ;
 
 int main(void){
 	InitLED();
-	spi0_Init();
-	
-	
+	//spi0_Init();
+	I2C_int();
+	i2c_EnableAck();
 
-	 Int_EP();
-	Display_init(IMAGE_RED,IMAGE_BLACK, Font24_size,Font24_Table,AGH_logo,AGH_logo_Size);
+	// Int_EP();
+	//Display_init(IMAGE_RED,IMAGE_BLACK, Font24_size,Font24_Table,AGH_logo,AGH_logo_Size);
 	/*
 	// DrawLine_EP(IMAGE_BLACK, 0, 0, 200, 200, COLORED);
 	// DrawHorizontalLine_EP(IMAGE_BLACK, 10, 10, 200, COLORED);

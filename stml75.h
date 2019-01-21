@@ -1,0 +1,16 @@
+#ifndef STML75_H_
+#define STML75_H_
+
+
+
+
+#define STML75_TEMP_REG_READ 0x91;
+#define STML75_CONF_REG_READ 0x93;
+#define STML75_CONF_REG_WRITE 0x92;
+#define STML75_HIST_REG_READ 0x95;
+#define STML75_HIST_REG_WRITE 0x94;
+#define STML75_SDOW_REG_READ 0x97;
+#define STML75_SDOW_REG_WRITE 0x96;
+
+
+#endif

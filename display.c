@@ -28,7 +28,7 @@ void Display_init(uint8_t*Buffor_Red,uint8_t*Buffor_Black,const uint8_t*Font24_s
 	DrawVerticalLine_EP(Buffor_Black, 85, 0, 118, COLORED);
 	DrawVerticalLine_EP(Buffor_Black, 86, 0, 118, COLORED);
   ImageAt(Buffor_Black, 150, 120,AGH_logo_Size,AGH_logo, COLORED);
-
+	ImageAt(Buffor_Red, 149, 120,AGH_logo_Size,AGH_logo, COLORED);
 	DisplayFrame_EP(Buffor_Black, Buffor_Red);
 	Sleep_EP();
 
