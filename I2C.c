@@ -2,45 +2,45 @@
 #include "MKL25Z4.h"
 
 void I2C_int() {
-				SIM_SCGC5 |= SIM_SCGC5_PORTE_MASK;     		//Turn on clock to E module
-				PORTE_PCR0 = PORT_PCR_MUX(2);    					//Set PTE0 to alt2 [I2C_SDA]
-				PORTE_PCR1 = PORT_PCR_MUX(2); 						//Set PTE1 to alt2 [I2C_SCL]
-				SIM->SCGC4 |= SIM_SCGC4_I2C1_MASK;				//turn on clok to I2C1
-				I2C1->A1=0x00;
-				I2C1->F=0x10;
-				I2C1->C1|=I2C_C1_MST_MASK|I2C_C1_IICEN_MASK;
+				SIM_SCGC5 |= SIM_SCGC5_PORTE_MASK;     					//Turn on clock to E module
+				PORTE_PCR0 = PORT_PCR_MUX(2);    								//Set PTE0 to alt2 [I2C_SDA]
+				PORTE_PCR1 = PORT_PCR_MUX(2); 									//Set PTE1 to alt2 [I2C_SCL]
+				SIM->SCGC4 |= SIM_SCGC4_I2C1_MASK;							//turn on clok to I2C1
+				I2C1->A1=0x00;																	//clear adress of slave
+				I2C1->F=0x10;																		//ser multiple factor as =4
+				I2C1->C1|=I2C_C1_MST_MASK|I2C_C1_IICEN_MASK;		//set as master and enable interupt
 }
 
 
 void i2c_DisableAck() {
-	I2C1->C1 |= I2C_C1_TXAK_MASK;
+	I2C1->C1 |= I2C_C1_TXAK_MASK;   //enable acknowledge signal
 }
 
 
 void i2c_EnableAck( ){
-	I2C1->C1 &= ~I2C_C1_TXAK_MASK;
+	I2C1->C1 &= ~I2C_C1_TXAK_MASK;	 //enable acknowledge signal
 }
 
 
 void i2c_RepeatedStart( ){
-	I2C0->F = 0;
-	I2C1->C1 |= I2C_C1_RSTA_MASK;
-	I2C1->F = 0x10;
+	I2C0->F = 0;										//set multiplay to 0
+	I2C1->C1 |= I2C_C1_RSTA_MASK;		//Repeat start
+	I2C1->F = 0x10;									//set multiplay to 4
 }
 
 void i2c_EnterRxMode( ){
-	I2C1->C1 &= ~I2C_C1_TX_MASK;
+	I2C1->C1 &= ~I2C_C1_TX_MASK;		//enter recive mode
 }
 
-void i2c_Start( ){
-	I2C1->C1 |= I2C_C1_TX_MASK;
-	I2C1->C1 |= I2C_C1_MST_MASK;
+void i2c_Start( ){	
+	I2C1->C1 |= I2C_C1_TX_MASK;			//enter transmit mode
+	I2C1->C1 |= I2C_C1_MST_MASK;		//set as master
 }
 
 
 void i2c_Stop( ){
-	I2C1->C1 &= ~I2C_C1_MST_MASK;
-	I2C1->C1 &= ~I2C_C1_TX_MASK;
+	I2C1->C1 &= ~I2C_C1_MST_MASK;		//enter slave mode
+	I2C1->C1 &= ~I2C_C1_TX_MASK;		//set reciver mode
 }
 
 
@@ -48,19 +48,19 @@ void i2c_Wait( ){
 	uint32_t i = 0;
 	i = 1000000;
 
-	while(((I2C1->S & I2C_S_IICIF_MASK) == 0) && i)	{
+	while(((I2C1->S & I2C_S_IICIF_MASK) == 0) && i)	{			//wait for interupt flag
 		i--;
 	}
-	I2C1->S |= I2C_S_IICIF_MASK;
+	I2C1->S |= I2C_S_IICIF_MASK;													//cler interupt flag 38.3.5
 }
 
 void i2c_WriteByte( uint8_t data){
-	I2C1->D = (uint8_t)data;
+	I2C1->D = (uint8_t)data;															//write 8-bit data to data register initiate data transfer
 }
 
 
 uint8_t i2c_ReadByte( ){
-	return (uint8_t)( I2C1->D );
+	return (uint8_t)( I2C1->D );													//read 8-bit data from data register
 }
 
 
