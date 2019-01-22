@@ -12,7 +12,7 @@
 uint32_t delay= 16;
 int status=0;
 
-uint8_t data=0x11 ;
+uint16_t data=0x00 ;
 uint8_t recived=0x00 ;
 
 
@@ -27,29 +27,8 @@ int main(void){
 	InitLED();
 	//spi0_Init();
 	I2C_int();
-	i2c_EnableAck();
-	 i2c_Start( );
-//	mywait(50);
-	i2c_Start();
-	i2c_WriteByte(((0x90 ) | I2C_WRITE));
-	i2c_Wait();
 
-	i2c_WriteByte(0x00);
-	i2c_Wait();
-
-	i2c_RepeatedStart();
-
-	i2c_WriteByte( ((0x90 ) | I2C_READ));
-	i2c_Wait();
-
-	i2c_EnterRxMode();
-//	i2c_DisableAck();
-
-	data = i2c_ReadByte();
-	i2c_Wait();
-	data = i2c_ReadByte();
-	i2c_Stop();
-	mywait(50);
+	data=  stml75_Read_Temp();
 
 	// Int_EP();
 	//Display_init(IMAGE_RED,IMAGE_BLACK, Font24_size,Font24_Table,AGH_logo,AGH_logo_Size);
@@ -102,7 +81,7 @@ int main(void){
 */
 
 
-
+//if()
 	
 while(1){
 //DCon();

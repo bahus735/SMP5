@@ -1,6 +1,6 @@
 #ifndef STML75_H_
 #define STML75_H_
-
+#include "MKL25Z4.h"
 
 
 
@@ -8,5 +8,7 @@
 #define STML75_HIST_REG_ADDR 		0x05
 #define STML75_SDOW_REG_ADDR		0x07
 #define STML75_ADDR							0x90
+
+uint16_t  stml75_Read_Temp(void);
 
 #endif
