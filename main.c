@@ -6,6 +6,7 @@
 #include "spi.h"
 #include "i2c.h"
 #include "epaper.h"
+#include "stml75.h"
 #include "font8x8.h"
 #include "display.h"
 uint32_t delay= 16;
@@ -27,6 +28,28 @@ int main(void){
 	//spi0_Init();
 	I2C_int();
 	i2c_EnableAck();
+	 i2c_Start( );
+//	mywait(50);
+	i2c_Start();
+	i2c_WriteByte(((0x90 ) | I2C_WRITE));
+	i2c_Wait();
+
+	i2c_WriteByte(0x00);
+	i2c_Wait();
+
+	i2c_RepeatedStart();
+
+	i2c_WriteByte( ((0x90 ) | I2C_READ));
+	i2c_Wait();
+
+	i2c_EnterRxMode();
+//	i2c_DisableAck();
+
+	data = i2c_ReadByte();
+	i2c_Wait();
+	data = i2c_ReadByte();
+	i2c_Stop();
+	mywait(50);
 
 	// Int_EP();
 	//Display_init(IMAGE_RED,IMAGE_BLACK, Font24_size,Font24_Table,AGH_logo,AGH_logo_Size);

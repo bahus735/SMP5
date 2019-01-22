@@ -2,9 +2,9 @@
 #include "MKL25Z4.h"
 
 void I2C_int() {
-				SIM_SCGC5 |= SIM_SCGC5_PORTE_MASK;     					//Turn on clock to E module
-				PORTE_PCR0 = PORT_PCR_MUX(2);    								//Set PTE0 to alt2 [I2C_SDA]
-				PORTE_PCR1 = PORT_PCR_MUX(2); 									//Set PTE1 to alt2 [I2C_SCL]
+				SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;     					//Turn on clock to E module
+				PORTC_PCR10 = PORT_PCR_MUX(2);    								//Set PTC10 to alt2 [I2C_SCL]
+				PORTC_PCR11 = PORT_PCR_MUX(2); 									//Set PTC11 to alt2 [I2C_SDA]
 				SIM->SCGC4 |= SIM_SCGC4_I2C1_MASK;							//turn on clok to I2C1
 				I2C1->A1=0x00;																	//clear adress of slave
 				I2C1->F=0x10;																		//ser multiple factor as =4
@@ -18,12 +18,12 @@ void i2c_DisableAck() {
 
 
 void i2c_EnableAck( ){
-	I2C1->C1 &= ~I2C_C1_TXAK_MASK;	 //enable acknowledge signal
+	I2C1->C1 &= ~I2C_C1_TXAK_MASK;	 //disable acknowledge signal
 }
 
 
 void i2c_RepeatedStart( ){
-	I2C0->F = 0;										//set multiplay to 0
+	I2C1->F = 0;										//set multiplay to 0
 	I2C1->C1 |= I2C_C1_RSTA_MASK;		//Repeat start
 	I2C1->F = 0x10;									//set multiplay to 4
 }
@@ -55,7 +55,7 @@ void i2c_Wait( ){
 }
 
 void i2c_WriteByte( uint8_t data){
-	I2C1->D = (uint8_t)data;															//write 8-bit data to data register initiate data transfer
+	I2C1->D = data;															//write 8-bit data to data register initiate data transfer
 }
 
 
@@ -69,7 +69,7 @@ void i2c_WriteRegister( uint8_t SlaveAddress,uint8_t RegisterAddress, uint8_t da
 	//uint8_t res = 0;
 
 	i2c_Start();
-	i2c_WriteByte( ((SlaveAddress << 1) | I2C_WRITE));
+	i2c_WriteByte( ((SlaveAddress ) | I2C_WRITE));
 	i2c_Wait();
 
 	i2c_WriteByte(RegisterAddress);
@@ -96,20 +96,48 @@ void i2c_WriteRegister( uint8_t SlaveAddress,uint8_t RegisterAddress, uint8_t da
 	return res;*/
 }
 
+void i2c_SetPointer( uint8_t SlaveAddress,uint8_t Pointer){
+	//uint8_t res = 0;
+
+	i2c_Start();
+	i2c_WriteByte( ((SlaveAddress ) | I2C_WRITE));
+	i2c_Wait();
+
+	i2c_WriteByte(Pointer);
+	i2c_Wait();
+
+	i2c_Stop();
+
+	mywait(50);
+
+	/*
+	i2c_RepeatedStart(i2c);
+	i2c_WriteByte(i2c, ((SlaveAddress << 1) | I2C_READ));
+	i2c_Wait(i2c);
+	i2c_EnterRxMode(i2c);
+	i2c_DisableAck(i2c);
+	res = i2c_ReadByte(i2c);
+	i2c_Wait(i2c);
+	i2c_Stop(i2c);
+	res = i2c_ReadByte(i2c);
+	delay(50);
+	return res;*/
+}
+
 
 uint8_t i2c_ReadRegister( uint8_t SlaveAddress,uint8_t RegisterAddress){
 	uint8_t res = 0;
 
 	i2c_Start();
-	i2c_WriteByte(((SlaveAddress << 1) | I2C_WRITE));
+	i2c_WriteByte(((SlaveAddress ) | I2C_WRITE));
 	i2c_Wait();
 
-	i2c_WriteByte(RegisterAddress);
+	i2c_WriteByte(RegisterAddress<<1);
 	i2c_Wait();
 
 	i2c_RepeatedStart();
 
-	i2c_WriteByte( ((SlaveAddress << 1) | I2C_READ));
+	i2c_WriteByte( ((SlaveAddress ) | I2C_READ));
 	i2c_Wait();
 
 	i2c_EnterRxMode();
