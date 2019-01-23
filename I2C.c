@@ -7,7 +7,7 @@ void I2C_int() {
 				PORTC_PCR11 = PORT_PCR_MUX(2); 									//Set PTC11 to alt2 [I2C_SDA]
 				SIM->SCGC4 |= SIM_SCGC4_I2C1_MASK;							//turn on clok to I2C1
 				I2C1->A1=0x00;																	//clear adress of slave
-				I2C1->F=0x10;																		//ser multiple factor as =4
+				I2C1->F=0x10;																		//set multiple factor as =4
 				I2C1->C1|=I2C_C1_MST_MASK|I2C_C1_IICEN_MASK;		//set as master and enable interupt
 }
 
@@ -32,15 +32,18 @@ void i2c_EnterRxMode( ){
 	I2C1->C1 &= ~I2C_C1_TX_MASK;		//enter recive mode
 }
 
+void i2c_EnterTxMode( ){
+	I2C1->C1 |= I2C_C1_TX_MASK;		//enter recive mode
+}
+
 void i2c_Start( ){	
-	I2C1->C1 |= I2C_C1_TX_MASK;			//enter transmit mode
 	I2C1->C1 |= I2C_C1_MST_MASK;		//set as master
 }
 
 
 void i2c_Stop( ){
-	I2C1->C1 &= ~I2C_C1_MST_MASK;		//enter slave mode
-	I2C1->C1 &= ~I2C_C1_TX_MASK;		//set reciver mode
+			I2C1->C1 &= ~I2C_C1_MST_MASK;			//enter slave mode
+		//	I2C1->C1 &= ~I2C_C1_TX_MASK;		//set reciver mode
 }
 
 
@@ -51,7 +54,7 @@ void i2c_Wait( ){
 	while(((I2C1->S & I2C_S_IICIF_MASK) == 0) && i)	{			//wait for interupt flag
 		i--;
 	}
-	I2C1->S |= I2C_S_IICIF_MASK;													//cler interupt flag 38.3.5
+	I2C1->S |= I2C_S_IICIF_MASK;													//clear interupt flag 38.3.5
 }
 
 void i2c_WriteByte( uint8_t data){

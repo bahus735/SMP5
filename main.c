@@ -29,7 +29,7 @@ int main(void){
 	I2C_int();
 
 	data=  stml75_Read_Temp();
-
+	
 	// Int_EP();
 	//Display_init(IMAGE_RED,IMAGE_BLACK, Font24_size,Font24_Table,AGH_logo,AGH_logo_Size);
 	/*

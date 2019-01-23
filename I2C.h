@@ -24,6 +24,7 @@ void i2c_EnterRxMode( void);
 void i2c_Start( void);
 void i2c_Stop( void);
 void i2c_Wait( void);
+void i2c_EnterTxMode(void);
 void i2c_WriteByte( uint8_t data);
 void i2c_SetPointer( uint8_t SlaveAddress,uint8_t Pointer);
 void i2c_WriteRegister( uint8_t SlaveAddress,uint8_t RegisterAddress, uint8_t data);
