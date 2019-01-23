@@ -15,6 +15,16 @@ void mywait(uint32_t delay){
 	uint32_t i = 0;
 		for(i = 0; i<(delay*100000);i++){}
 }
+
+
+
+/****************************************************************
+*This part of code holds look up tables for e-papaer
+*they need to be set to allow safe e-papaer operations 
+*
+*****************************************************************/
+
+
 const uint8_t lut_vcom0[] =
 {
   0x0E, 0x14, 0x01, 0x0A, 0x06, 0x04, 0x0A, 0x0A,
@@ -62,91 +72,116 @@ const uint8_t lut_red1[] =
   0x03, 0x1D, 0x01, 0x01, 0x08, 0x23, 0x37, 0x37,
   0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
+/****************************************************************
+*@Function: void Int_EP(void)
+*@Description: initialization of epaper. it takes no arguments.
+*e-paper needs to be initalized in certain way. 
+*SPI Module must be init for this function to work!!!
+*code bellow is based on initilaziation provided in datasheed of the epapaer module
+*@link:
+*****************************************************************/
+
 
 void Int_EP(void){
 
-	PORTC_PCR9=PORT_PCR_MUX(0x1);
-	PORTC_PCR3=PORT_PCR_MUX(0x1);
-	PORTC_PCR8=PORT_PCR_MUX(0x1);
-	PTC->PDDR|= (EPAPER_RST)|(EPAPER_DC);
-	PTC->PDDR&= ~EPAPER_BUSY;
+	PORTC_PCR9=PORT_PCR_MUX(0x1);										//set as GPIO. This is PCR3 EPAPER_RST pin
+	PORTC_PCR3=PORT_PCR_MUX(0x1);										//set as GPIO. This is PCR3 EPAPER_BUSY pin
+	PORTC_PCR8=PORT_PCR_MUX(0x1);										//set as GPIO. This is PCR3 EPAPER_DC pin
+	PTC->PDDR|= (EPAPER_RST)|(EPAPER_DC);						//setting output for control pins of e-paper
+	PTC->PDDR&= ~EPAPER_BUSY;												//setting input for EPAPER_BUSY pin
 
-	DCon();
-	SSon();
-	RSTon();
+	DCon();																					//set DC high						
+//SSon();																					//set SS high
+	RSTon();																				//set reset high
 	
-	Reset_EP();
+	Reset_EP();																			//reset the epapaer module
 
-	SendCommand_EP(POWER_SETTING);
+	SendCommand_EP(POWER_SETTING);									//send command to write to power settings register
 
-	SendData_EP(0x07);
+	SendData_EP(0x07);															//send data....
 	SendData_EP(0x00);
 	SendData_EP(0x08);
 	SendData_EP(0x00);
 
-	SendCommand_EP(BOOSTER_SOFT_START);	
+	SendCommand_EP(BOOSTER_SOFT_START);							//send command to write to booster register
 
-	SendData_EP(0x07);
+	SendData_EP(0x07);															//send data...
 	SendData_EP(0x07);
 	SendData_EP(0x07);
 
-	SendCommand_EP(POWER_ON);
-	WaitUntilIdle_EP();
+	SendCommand_EP(POWER_ON);												//power on module
+	WaitUntilIdle_EP();															//wait for power up
 	
-	SendCommand_EP(PANEL_SETTING);
+	SendCommand_EP(PANEL_SETTING);									//send command to write to panel setting register 
 	
-	SendData_EP(0xcf);
+	SendData_EP(0xcf);															//send data...
 	
-	SendCommand_EP(VCOM_AND_DATA_INTERVAL_SETTING);
+	SendCommand_EP(VCOM_AND_DATA_INTERVAL_SETTING);	//send command to write to vcom and data setting register
 	
-	SendData_EP(0x17);
+	SendData_EP(0x17);															//send data...
 	
-	SendCommand_EP(PLL_CONTROL);
+	SendCommand_EP(PLL_CONTROL);										//send data to write to pll control register
 	
-	SendData_EP(0x39);
+	SendData_EP(0x39);															//send data...
 	
-	SendCommand_EP(TCON_RESOLUTION);
+	SendCommand_EP(TCON_RESOLUTION);								// send command to write to resolution register
 	
-	SendData_EP(0xC8);
+	SendData_EP(0xC8);															//send data...		
 	SendData_EP(0x00);
 	SendData_EP(0xC8);
 	
-	SendCommand_EP(VCM_DC_SETTING_REGISTER);
-	WaitUntilIdle_EP();
-	SendData_EP(0x0E);
-	SetLutBw_EP();
-	SetLutRed_EP();
+	SendCommand_EP(VCM_DC_SETTING_REGISTER);				//send command to write to vcm dc setting register
+	WaitUntilIdle_EP();															//wait for module to be freed
+	SendData_EP(0x0E);															//send data..
+	SetLutBw_EP();																	//send LUT data for black
+	SetLutRed_EP();																	//send LUT data for red
 	//SendCommand_EP(DISPLAY_REFRESH);
 	//WaitUntilIdle_EP();	
 	//SendCommand_EP(DISPLAY_REFRESH);
 }
 
+/*********************************************************************************
+*
+*
+*
+*********************************************************************************/
+
 void Sleep_EP() {
-    SendCommand_EP(VCOM_AND_DATA_INTERVAL_SETTING);
+    SendCommand_EP(VCOM_AND_DATA_INTERVAL_SETTING);			//send command to write to vcom and data setting register				
     SendData_EP(0x17);
-    SendCommand_EP(VCM_DC_SETTING_REGISTER);         //to solve Vcom drop
+    SendCommand_EP(VCM_DC_SETTING_REGISTER);   		       //to solve Vcom drop write 00 to register
     SendData_EP(0x00);
-    SendCommand_EP(POWER_SETTING);         //power setting
-    SendData_EP(0x02);        //gate switch to external
+    SendCommand_EP(POWER_SETTING);      							   //power setting
+    SendData_EP(0x02);       														 //gate switch to external
     SendData_EP(0x00);
     SendData_EP(0x00);
     SendData_EP(0x00);
-    WaitUntilIdle_EP();
-    SendCommand_EP(POWER_OFF);
+    WaitUntilIdle_EP();																		//wait for power setting to be set
+    SendCommand_EP(POWER_OFF);														// power off module. it can be wake up with restet signal
 
 
 }
 		
 	
 
-/*Funkcja wysylajaca komende do modulu spi*/
-void SendCommand_EP(uint8_t command){
+/*********************************************************************************
+*@Function: SendCommand_EP(uint8_t command)
+*@Arguments: command -- command that you want to send to the epaper module.
+*@Description: sending commant on the spi to write the command to the module.
+*the DC pin is set to low to indicate that command is being send
+*********************************************************************************/
+void SendCommand_EP(uint8_t command){	
 	DCoff();
 	spi0_SendRecive(command);
 }
+/*********************************************************************************
+*@Function: Reset_EP( void)
+*@desctiption: reseting the module by setting RST pin to active state(low)
+*
+*********************************************************************************/
 
 
-/*Funkcja resetujaca modul*/
+
 void Reset_EP(void){
 RSToff();
 mywait(delay);
@@ -154,10 +189,23 @@ RSTon();
 mywait(delay);
 }
 
+/*********************************************************************************
+*@Function: SendData_EP(uint8)t data)
+*@Arguments:uint8_t data -- data that you want to send to the epaper module.
+*@Description: write the data to the e papaer module. before that the CD pin is set high 
+*to indicate that data is sended 
+*********************************************************************************/
+
 void SendData_EP(uint8_t data){
 DCon();
 spi0_SendRecive(data);	
 }
+
+/*********************************************************************************
+*@Function: WaitUntilIdle_EP(void)
+*@Description: This function waits untill the e paper pin BUSY is changed to higt state
+*that indicates the epaper is ready to recive datacommand
+*********************************************************************************/
 
 void WaitUntilIdle_EP(void){
 while((BUSYread()==0x00)){
@@ -165,23 +213,50 @@ while((BUSYread()==0x00)){
 };
 
 }
+
+/*********************************************************************************
+*@Function:DCon(void)
+*@Description: function that sets DC pin high 
+*********************************************************************************/
+
 void DCon(void){
  PTC->PSOR=(EPAPER_DC);
  }
 
+/*********************************************************************************
+*@Function:DCoff(void)
+*@Description: function that sets DC pin low 
+*********************************************************************************/
 
 void DCoff(void){
  PTC->PCOR=(EPAPER_DC); 
  }
 
+/*********************************************************************************
+*@Function:RSTon(void)
+*@Description: function that sets RST pin high 
+*********************************************************************************/
  
 void RSTon(void){
  PTC->PSOR=(EPAPER_RST);
  }
 
+/*********************************************************************************
+*@Function:RSTon(void)
+*@Description: function that sets RST pin low 
+*********************************************************************************/
+ 
+
 void RSToff(void){
  PTC->PCOR=(EPAPER_RST);
  }
+
+ /*********************************************************************************
+*@Function:BUSYread 
+*@Returns:uint32_t -- show is the BUSY pin is high or low
+*@Description: reds the status od BUSY pin that is on PTC8
+*********************************************************************************/
+
 
 uint32_t BUSYread(void){
 uint32_t temp	=0x0;
@@ -189,13 +264,29 @@ uint32_t temp	=0x0;
  return temp;
  }
 
+ /*********************************************************************************
+*@Function:SSon(void) 
+*@Description: function that sets SS pin high if spi is not in control of it.
+*********************************************************************************/
+
  void SSon(void){
  PTC->PSOR=(EPAPER_SS);
  }
+ /*********************************************************************************
+*@Function:SSoff(void) 
+*@Description: function that sets SS pin low if spi is not in control of it.
+*********************************************************************************/
+
 void SSoff(void){
  PTC->PCOR=(EPAPER_SS);
 }
 	
+/*********************************************************************************
+*@Function: SetLutRed_EP()
+*@Description: this funtion writes to epaper module the lut for red colored pixels that are needed to 
+* operate that module. they are provided by manufactuer but can be change if there 
+* is no need of long living display.
+*********************************************************************************/
 
 void SetLutRed_EP(){
   unsigned int count;     
@@ -220,6 +311,13 @@ void SetLutRed_EP(){
     SendData_EP(lut_g2[count]);
   }
 }
+
+/*********************************************************************************
+*@Function: SetLutRed_EP()
+*@Description: this funtion writes to epaper module the lut for black colored pixels that are needed to 
+* operate that module. they are provided by manufactuer but can be change if there 
+* is no need of long living display.
+*********************************************************************************/
 void SetLutBw_EP() {
   unsigned int count;     
   SendCommand_EP(0x25);
@@ -236,15 +334,23 @@ void SetLutBw_EP() {
   } 
 }
 
+/*********************************************************************************
+*@Function: DisplayFrame_EP( uint8_t* frame_buffer_black,  uint8_t* frame_buffer_red)
+*@Arguments: frame_buffer_black-- buffer that holds black pixels
+*						 frame_buffer_red  -- buffer that holds red pixels
+*@Description: 
+*********************************************************************************/
+
+
 void DisplayFrame_EP( uint8_t* frame_buffer_black,  uint8_t* frame_buffer_red) {
-  unsigned char temp;
+  unsigned char temp;																						//temporary varialble that helps in sending
   if (frame_buffer_black != 0) {
-    SendCommand_EP(DATA_START_TRANSMISSION_1);
-     mywait(2);
+    SendCommand_EP(DATA_START_TRANSMISSION_1);									//send commant to start transmision of black buffor
+     mywait(2);																									//waits for delays on module states
     for ( i = 0; i < width * height / 8; i++) {
       temp = 0x00;
       for ( bit = 0; bit < 4; bit++) {
-        if ((frame_buffer_black[i] & (0x80 >> bit)) != 0) {
+        if ((frame_buffer_black[i] & (0x80 >> bit)) != 0) {			//because pixels are holded in 1 bit in buffer but in module in2 bits here the 4 bits are changed to 8 bits
           temp |= 0xC0 >> (bit * 2);
         }
       }
@@ -257,52 +363,56 @@ void DisplayFrame_EP( uint8_t* frame_buffer_black,  uint8_t* frame_buffer_red) {
       }
       SendData_EP(temp);
     }
-    mywait(2);
+    mywait(2);																									//waits for delays on module states
   }
   if (frame_buffer_red != 0) {
-    SendCommand_EP(DATA_START_TRANSMISSION_2);
+    SendCommand_EP(DATA_START_TRANSMISSION_2);									//send command to write red pixels value
     mywait(2);
     for ( i = 0; i < width * height / 8; i++) {
       SendData_EP(frame_buffer_red[i]);
     }
      mywait(2);
   }
-  SendCommand_EP(DISPLAY_REFRESH);
+  SendCommand_EP(DISPLAY_REFRESH);															//refresh diplay to show the result
   WaitUntilIdle_EP();
 }
 
 
-/*void Write_Text_EP(uint8_t *Buffor,const char *text,uint8_t* font[] ){
-	
-	uint8_t NumOflet=sizeof(text);
-	uint8_t let=0;
-	
-	for(j=0;j<NumOflet;j++){
-			let=text[j];
-		for( i=0;i<16;i++){
-		
-		
-			Buffor[i]= font[let][i];
-	
-	
-			}
-		}
 
-}
-*/
+/*********************************************************************************
+*@Function:SetPixel_EP(uint8_t *Buffer,uint8_t x, uint8_t y, uint8_t color)
+*@Arguments: Buffer-- the pointer to buffer we want to set pixel in(red or black)
+						 x     --	the x value of the point in buffer
+						 y		 --	the y value of the point in buffer
+             color --	the color(1=red or black depending on buffer) or uncolored(0=white) 
+*@Description: 
+*********************************************************************************/
 
 void SetPixel_EP(uint8_t *Buffer,uint8_t x, uint8_t y, uint8_t color){
 \
-    if ( x >= EPD_WIDTH  || y >= EPD_HEIGHT){
+    if ( x >= EPD_WIDTH  || y >= EPD_HEIGHT){															//check if writing on the buffer
         return;
     }
-    if (color){
-        Buffer[(x + y * EPD_WIDTH) / 8] &= ~(0x80 >> (x % 8));
+    if (color){																												
+        Buffer[(x + y * EPD_WIDTH) / 8] &= ~(0x80 >> (x % 8));						//set pixel to color
     }
     else{
-        Buffer[(x + y * EPD_WIDTH) / 8] |= 0x80 >> (x % 8);
+        Buffer[(x + y * EPD_WIDTH) / 8] |= 0x80 >> (x % 8);								//set pixel to non color
     }
 }
+
+
+/*********************************************************************************
+*@Function:DrawLine_EP(uint8_t *Buffer, uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color)
+*@Arguments: Buffer -- the pointer to buffer we writing in
+						 x0			-- x coordinate of the begging of the line
+						 y0			-- y coordinate of the begging of the line
+						 x1			-- x coordinate of the ending of the line
+						 y1			-- y coordinate of the ending of the line
+						 color  --	the color(1=red or black depending on buffer) or uncolored(0=white) 
+*@Description: this function uses Bresenham algorithm to draw the best line connecting two points
+*@Source: 		https://www.thecrazyprogrammer.com/2017/01/bresenhams-line-drawing-algorithm-c-c.html
+*********************************************************************************/
 
 void DrawLine_EP(uint8_t *Buffer, uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color){
     // Bresenham algorithm
@@ -325,6 +435,17 @@ void DrawLine_EP(uint8_t *Buffer, uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1
 }
 
  
+/*********************************************************************************
+*@Function:DrawHorizontalLine_EP
+*@Arguments: Buffer -- the pointer to buffer we writing in
+						 x0			-- x coordinate of the begging of the line
+						 y0			-- y coordinate of the begging of the line
+						 lenght	-- lenght of the horizontal line
+						 color  --	the color(1=red or black depending on buffer) or uncolored(0=white) 
+*@Description: this function is drawning hozizontal line on the buffor.
+*********************************************************************************/
+
+
 void DrawHorizontalLine_EP(uint8_t *Buffer, uint8_t x, uint8_t y, uint8_t lenght, uint8_t color){
     uint8_t i=0;
 		for ( i=x; i<x + lenght; i++){
@@ -332,6 +453,15 @@ void DrawHorizontalLine_EP(uint8_t *Buffer, uint8_t x, uint8_t y, uint8_t lenght
     }
 }
  
+/*********************************************************************************
+*@Function:DrawVerticalLine_EP
+*@Arguments: Buffer -- the pointer to buffer we writing in
+						 x0			-- x coordinate of the begging of the line
+						 y0			-- y coordinate of the begging of the line
+						 pitch	-- height of the vertical line
+						 color  --	the color(1=red or black depending on buffer) or uncolored(0=white) 
+*@Description:  this function is drawning vertical line on the buffor.
+*********************************************************************************/
 
 
  void DrawVerticalLine_EP(uint8_t *Buffer, uint8_t x, uint8_t y, uint8_t pitch, uint8_t color){
@@ -341,9 +471,19 @@ void DrawHorizontalLine_EP(uint8_t *Buffer, uint8_t x, uint8_t y, uint8_t lenght
     }
 }
  
+/*********************************************************************************
+*@Function:DrawRectangle_EP
+*@Arguments: Buffer -- the pointer to buffer we writing in
+						 x0			-- x coordinate of the begging corner of the rectangle
+						 y0			-- y coordinate of the begging corner of the rectangle
+						 x1			-- x coordinate of the ending corner of the rectangle
+						 y1			-- y coordinate of the ending corner of the rectangle
+						 color  --	the color(1=red or black depending on buffer) or uncolored(0=white) 
+*@Description: this function is drawning rectangle on the buffer
+*********************************************************************************/
 
  void DrawRectangle_EP(uint8_t *Buffer, uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color){
-    uint8_t min_x = x1 > x0 ? x0 : x1;
+    uint8_t min_x = x1 > x0 ? x0 : x1;																				//this is selecting wich point are minimal position in buffer
     uint8_t max_x = x1 > x0 ? x1 : x0;
     uint8_t min_y = y1 > y0 ? y0 : y1;
     uint8_t max_y = y1 > y0 ? y1 : y0;
@@ -353,6 +493,16 @@ void DrawHorizontalLine_EP(uint8_t *Buffer, uint8_t x, uint8_t y, uint8_t lenght
     DrawVerticalLine_EP(Buffer, max_x, min_y, max_y - min_y + 1, color);
 }
 
+/*********************************************************************************
+*@Function:DrawFilledRectangle_EP
+*@Arguments: Buffer -- the pointer to buffer we writing in
+						 x0			-- x coordinate of the begging corner of the rectangle
+						 y0			-- y coordinate of the begging corner of the rectangle
+						 x1			-- x coordinate of the ending corner of the rectangle
+						 y1			-- y coordinate of the ending corner of the rectangle
+						 color  --	the color(1=red or black depending on buffer) or uncolored(0=white) 
+*@Description: this is drawnig filled rectangle on the buffer.
+*********************************************************************************/
 
 
 void DrawFilledRectangle_EP(uint8_t *Buffer, uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color){
@@ -366,6 +516,11 @@ void DrawFilledRectangle_EP(uint8_t *Buffer, uint8_t x0, uint8_t y0, uint8_t x1,
     }
 }
 
+/*********************************************************************************
+*@Function:DrawCircle
+*@Arguments: 
+*@Description: not working yet
+*********************************************************************************/
 
 
 
@@ -401,6 +556,13 @@ void DrawCircle(uint8_t *Buffer, uint8_t x, uint8_t y, uint8_t radius, uint8_t c
     }
 }
  
+/*********************************************************************************
+*@Function:DrawFilledCircle_EP
+*@Arguments: 
+*@Description: not working yet
+*********************************************************************************/
+
+
 void DrawFilledCircle_EP(uint8_t *frame_buffer, uint8_t x, uint8_t y, uint8_t radius, uint8_t color){
     // Bresenham algorithm
     int16_t x_pos = -radius;
@@ -435,6 +597,19 @@ void DrawFilledCircle_EP(uint8_t *frame_buffer, uint8_t x, uint8_t y, uint8_t ra
     }
 }
 
+/*********************************************************************************
+*@Function:DrawCharAt_EP
+*@Arguments: Buffer 		-- the pointer to buffer we writing in
+						 x0					-- x coordinate of the begging of char
+						 y0					-- y coordinate of the begging of char
+						 ascii_char	-- scii character that needs to be writen
+						 fontsize		-- fize of the font used to write char
+						 font				-- Pointer to the font table in memory
+						 color 		  --	the color(1=red or black depending on buffer) or uncolored(0=white) 
+*@Description:  function draws character on the buffor
+*********************************************************************************/
+
+
 
 void DrawCharAt_EP(uint8_t *Buffer, uint8_t x, uint8_t y, uint8_t ascii_char,const uint8_t *fontsize,const uint8_t* font, uint8_t color) {
     int i, j;
@@ -457,6 +632,19 @@ void DrawCharAt_EP(uint8_t *Buffer, uint8_t x, uint8_t y, uint8_t ascii_char,con
     }
 }
 
+
+/*********************************************************************************
+*@Function:  ImageAt
+*@Arguments: Buffer 		-- the pointer to buffer we writing in
+						 x					-- x coordinate of the begging of image
+						 y					-- y coordinate of the begging of image
+						 imagesize	-- size of the image
+						 image			-- pointer to image buffor
+						 color 		  --	the color(1=red or black depending on buffer) or uncolored(0=white) 
+*@Description: its basicly can draw image on the buffor
+*********************************************************************************/
+
+
 void ImageAt(uint8_t *Buffer, uint8_t x, uint8_t y,const uint8_t *imagesize,const uint8_t* image, uint8_t color) {
     int i, j;
 	
@@ -478,9 +666,12 @@ void ImageAt(uint8_t *Buffer, uint8_t x, uint8_t y,const uint8_t *imagesize,cons
     }
 }
  
-/**
-*  @brief: this displays a string on the frame buffer but not refresh
-*/
+/*********************************************************************************
+*@Function:DrawStringAt_EP
+*@Arguments: 
+*@Description: 
+*********************************************************************************/
+
 void DrawStringAt_EP(uint8_t *Buffer, uint8_t x, uint8_t y,  char *text,const uint8_t *fontsize,const uint8_t* font, uint8_t color) {
     const char* p_text = text;
     unsigned int counter = 0;
@@ -501,6 +692,10 @@ void DrawStringAt_EP(uint8_t *Buffer, uint8_t x, uint8_t y,  char *text,const ui
 
 
 
+/*********************************************************************************
+
+*@Description: buffer that holding black and red pixels value
+*********************************************************************************/
 
 
 

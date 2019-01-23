@@ -30,8 +30,8 @@ int main(void){
 
 	data=  stml75_Read_Temp();
 	
-	// Int_EP();
-	//Display_init(IMAGE_RED,IMAGE_BLACK, Font24_size,Font24_Table,AGH_logo,AGH_logo_Size);
+	 Int_EP();
+	Display_init(IMAGE_RED,IMAGE_BLACK, Font24_size,Font24_Table,AGH_logo,AGH_logo_Size);
 	/*
 	// DrawLine_EP(IMAGE_BLACK, 0, 0, 200, 200, COLORED);
 	// DrawHorizontalLine_EP(IMAGE_BLACK, 10, 10, 200, COLORED);
