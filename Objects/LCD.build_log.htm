@@ -28,14 +28,24 @@ Project File Date:  01/21/2019
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\PrzydatneProgramy\Keil\ARM\ARMCC\Bin'
 Build target 'CMSIS-DAP'
 compiling stml75.c...
-stml75.c(9): warning:  #550-D: variable "dummy" was set but never used
-        uint8_t dummy=0;
-stml75.c(11): warning:  #550-D: variable "data1" was set but never used
-        uint16_t data1=0;
-stml75.c: 2 warnings, 0 errors
+stml75.c(51): warning:  #1-D: last line of file ends without a newline
+  }
+stml75.c(40): warning:  #550-D: variable "tempbin" was set but never used
+                        uint16_t tempbin=0;
+stml75.c(41): warning:  #177-D: variable "tempbcd" was declared but never referenced
+                        uint16_t tempbcd=0;
+stml75.c(42): warning:  #177-D: variable "sing" was declared but never referenced
+                        uint8_t  sing =0;
+stml75.c(43): warning:  #177-D: variable "tens" was declared but never referenced
+                        uint8_t  tens =0;
+stml75.c(44): warning:  #177-D: variable "ones" was declared but never referenced
+                        uint8_t  ones =0;
+stml75.c(45): warning:  #177-D: variable "point" was declared but never referenced
+                        uint8_t  point =0;
+stml75.c: 7 warnings, 0 errors
 linking...
-Program Size: Code=952 RO-data=224 RW-data=12 ZI-data=356  
-".\Objects\LCD.axf" - 0 Error(s), 2 Warning(s).
+Program Size: Code=3226 RO-data=16482 RW-data=10024 ZI-data=352  
+".\Objects\LCD.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 

@@ -668,7 +668,14 @@ void ImageAt(uint8_t *Buffer, uint8_t x, uint8_t y,const uint8_t *imagesize,cons
  
 /*********************************************************************************
 *@Function:DrawStringAt_EP
-*@Arguments: 
+*@Arguments: Buffer 		-- the pointer to buffer we writing in
+						 x					-- x coordinate of the begging of string
+						 y					-- y coordinate of the begging of string
+						 text	-- text ponter to char string
+						 image			-- pointer to image buffor
+						 fontsize 	-- pointer tothe tabe of sizes
+						 font				--pointer to font buffor
+						 color			--the color(1=red or black depending on buffer) or uncolored(0=white) 
 *@Description: 
 *********************************************************************************/
 
