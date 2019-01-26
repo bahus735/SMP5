@@ -1,5 +1,5 @@
-#ifndef FONT8X8_H
-#define FONT8X8_H
+#if !defined(FONT8X8_H_)  
+#define FONT8X8_H_
 #include "MKL25Z4.h"
 
 const uint8_t Font8_size[] =

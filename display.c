@@ -1,7 +1,9 @@
 #include "display.h"
+#include "epaper.h"
+
+
 #define  COLORED        1
 #define  UNCOLORED      0
-
 void Display_init(uint8_t*Buffor_Red,uint8_t*Buffor_Black,const uint8_t*Font24_size,const uint8_t*Font24_Table,const uint8_t *AGH_logo,const uint8_t *AGH_logo_Size){
 
 	DrawFilledRectangle_EP(Buffor_Red, 0, 0, 200,200 , UNCOLORED);
@@ -31,6 +33,5 @@ void Display_init(uint8_t*Buffor_Red,uint8_t*Buffor_Black,const uint8_t*Font24_s
 	ImageAt(Buffor_Red, 149, 120,AGH_logo_Size,AGH_logo, COLORED);
 	DisplayFrame_EP(Buffor_Black, Buffor_Red);
 	Sleep_EP();
-
-
 }
+

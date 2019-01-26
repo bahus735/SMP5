@@ -1,5 +1,5 @@
-#ifndef EPAPER_H
-#define EPAPER_H
+#if !defined(EPAPER_H_)
+#define EPAPER_H_
 
 
 
