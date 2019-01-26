@@ -5,9 +5,9 @@
 #include "leds.h"
 #include "spi.h"
 #include "i2c.h"
-
+#include "LPS331AP.h"
 #include "epaper.h"
-//#include "stml75.h"
+#include "stml75.h"
 #include "font8x8.h"
 #include "display.h"
 uint32_t delay= 16;
@@ -25,10 +25,16 @@ uint8_t recived=0x00 ;
 
 
 int main(void){
-	InitLED();
-//	spi0_Init();
 	I2C_int();
-
+	InitLED();
+	spi0_Init();
+	Int_EP();
+	Display_init(IMAGE_RED,IMAGE_BLACK, Font24_size,Font24_Table,AGH_logo,AGH_logo_Size);
+	
+	
+//	stml75_Set_Temp();
+//	DisplayFrame_EP(IMAGE_BLACK, IMAGE_RED);
+//	Sleep_EP();
 //	data=  stml75_Read_Temp();
 //		 tempbin=0x120;
 

@@ -8,7 +8,7 @@ void I2C_int() {
 				SIM->SCGC4 |= SIM_SCGC4_I2C1_MASK;							//turn on clok to I2C1
 				I2C1->A1=0x00;																	//clear adress of slave
 				I2C1->F=0x10;																		//set multiple factor as =4
-				I2C1->C1|=I2C_C1_MST_MASK|I2C_C1_IICEN_MASK;		//set as master and enable interupt
+				I2C1->C1|=I2C_C1_IICEN_MASK;		//set as master and enable interupt
 }
 
 

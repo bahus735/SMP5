@@ -1,5 +1,4 @@
 #include "display.h"
-#include "epaper.h"
 
 
 #define  COLORED        1
@@ -31,7 +30,50 @@ void Display_init(uint8_t*Buffor_Red,uint8_t*Buffor_Black,const uint8_t*Font24_s
 	DrawVerticalLine_EP(Buffor_Black, 86, 0, 118, COLORED);
   ImageAt(Buffor_Black, 150, 120,AGH_logo_Size,AGH_logo, COLORED);
 	ImageAt(Buffor_Red, 149, 120,AGH_logo_Size,AGH_logo, COLORED);
+	stml75_Set_Temp();
 	DisplayFrame_EP(Buffor_Black, Buffor_Red);
 	Sleep_EP();
 }
 
+void Display_tempe(uint8_t*Buffor_Red,uint8_t*Buffor_Black,const uint8_t*Font24_size,const uint8_t*Font24_Table,char *temper){
+
+	DrawStringAt_EP(Buffor_Red,90, 2,temper,Font24_size,Font24_Table, COLORED);
+
+
+
+}
+
+void Display_humi(uint8_t*Buffor_Red,uint8_t*Buffor_Black,const uint8_t*Font24_size,const uint8_t*Font24_Table,char *humi){
+
+
+	DrawStringAt_EP(Buffor_Red,90, 26, humi,Font24_size,Font24_Table, COLORED);
+
+
+
+}
+
+void Display_press(uint8_t*Buffor_Red,uint8_t*Buffor_Black,const uint8_t*Font24_size,const uint8_t*Font24_Table,char *press){
+
+
+	DrawStringAt_EP(IMAGE_RED,90, 50, press,Font24_size,Font24_Table, COLORED);
+
+
+
+}
+
+void Display_light(uint8_t*Buffor_Red,uint8_t*Buffor_Black,const uint8_t*Font24_size,const uint8_t*Font24_Table,char *light){
+
+
+	DrawStringAt_EP(IMAGE_RED,90, 74, light,Font24_size,Font24_Table, COLORED);
+
+
+
+}
+
+void Display_state(uint8_t*Buffor_Red,uint8_t*Buffor_Black,const uint8_t*Font24_size,const uint8_t*Font24_Table,char *state){
+
+
+	DrawStringAt_EP(IMAGE_RED,90, 98, state,Font24_size,Font24_Table, COLORED);
+
+
+}
