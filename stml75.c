@@ -7,8 +7,8 @@
 uint16_t  stml75_Read_Temp(void){
 	uint16_t dummy=0;
 	uint16_t data=0;
-	//uint16_t data1=0;
-	//uint8_t data2=0;
+	uint16_t data1=0;
+	uint8_t data2=0;
 
 	i2c_EnterTxMode();
 	i2c_EnableAck( );
@@ -24,14 +24,14 @@ uint16_t  stml75_Read_Temp(void){
 	dummy=i2c_ReadByte( );
 	i2c_Wait();
 	i2c_EnableAck( );
-
-	data=i2c_ReadByte( )<<8;
-	//data1=data;
-	i2c_Wait();
 	i2c_DisableAck();
+	data=i2c_ReadByte( )<<8;
+	data1=data;
+	i2c_Wait();
+	
 	i2c_Stop();
 	data|=i2c_ReadByte( );
-	//data2=data;
+	data2=data;
 	i2c_Wait();
 	
 	dummy=data>>7;

@@ -21,7 +21,7 @@ int spi0_Init(void){
 					PORTC->PCR[5] |= PORT_PCR_MUX(0x2); 	     				  //Set PTC5 to mux 2 [SPI0_SCK]
 					PORTC->PCR[6] |= PORT_PCR_MUX(0x2); 	    				 	//Set PTC6 to mux 2 [SPI0_MOSI]
 					PORTC->PCR[7] |= PORT_PCR_MUX(0x2);			  	 				//Set PTC7 to mux 2 [SPIO_MISO]
-					PORTC->PCR[4] |= PORT_PCR_MUX(0x2);
+					PORTC->PCR[4] |= PORT_PCR_MUX(0x2);									//Set PTC4 to mux 2 [SPIO_SS]
 					  							
 					 
 					

@@ -43,7 +43,7 @@ void i2c_Start( ){
 
 void i2c_Stop( ){
 			I2C1->C1 &= ~I2C_C1_MST_MASK;			//enter slave mode
-		//	I2C1->C1 &= ~I2C_C1_TX_MASK;		//set reciver mode
+			I2C1->C1 &= ~I2C_C1_TX_MASK;		//set reciver mode
 }
 
 

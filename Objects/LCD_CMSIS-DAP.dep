@@ -1,5 +1,5 @@
 Dependencies for Project 'LCD', Target 'CMSIS-DAP': (DO NOT MODIFY !)
-F (.\main.c)(0x5C4CDD78)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x5C4F7D15)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585BDE7A)
 I (C:\PrzydatneProgramy\Keil\ARM\ARMCC\include\stdint.h)(0x54C29A18)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm0plus.h)(0x55099064)
@@ -9,7 +9,7 @@ I (C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.
 I (leds.h)(0x5C059E53)
 I (spi.h)(0x5C43537F)
 I (i2c.h)(0x5C484F56)
-I (LPS331AP.h)(0x5C4CDE55)
+I (LPS331AP.h)(0x5C4CEC12)
 I (epaper.h)(0x5C4CB346)
 I (stml75.h)(0x5C4CC9BA)
 I (display.h)(0x5C4CB978)
@@ -38,7 +38,7 @@ I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm0plus
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmInstr.h)(0x55099064)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmFunc.h)(0x55099064)
 I (C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x56447F0A)
-F (.\spi.c)(0x5C4335A0)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\spi.o --omf_browse .\objects\spi.crf --depend .\objects\spi.d)
+F (.\spi.c)(0x5C4F44E6)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\spi.o --omf_browse .\objects\spi.crf --depend .\objects\spi.d)
 I (spi.h)(0x5C43537F)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585BDE7A)
 I (C:\PrzydatneProgramy\Keil\ARM\ARMCC\include\stdint.h)(0x54C29A18)
@@ -47,7 +47,7 @@ I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmInstr
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmFunc.h)(0x55099064)
 I (C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x56447F0A)
 I (epaper.h)(0x5C4CB346)
-F (.\epaper.c)(0x5C4A2798)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\epaper.o --omf_browse .\objects\epaper.crf --depend .\objects\epaper.d)
+F (.\epaper.c)(0x5C4F3C70)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\epaper.o --omf_browse .\objects\epaper.crf --depend .\objects\epaper.d)
 I (epaper.h)(0x5C4CB346)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585BDE7A)
 I (C:\PrzydatneProgramy\Keil\ARM\ARMCC\include\stdint.h)(0x54C29A18)
@@ -57,7 +57,7 @@ I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmFunc.
 I (C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x56447F0A)
 I (spi.h)(0x5C43537F)
 F (.\epaper.h)(0x5C4CB346)()
-F (.\display.c)(0x5C4CDE55)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\display.o --omf_browse .\objects\display.crf --depend .\objects\display.d)
+F (.\display.c)(0x5C4F627A)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\display.o --omf_browse .\objects\display.crf --depend .\objects\display.d)
 I (display.h)(0x5C4CB978)
 I (epaper.h)(0x5C4CB346)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585BDE7A)
@@ -69,7 +69,7 @@ I (C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.
 I (stml75.h)(0x5C4CC9BA)
 I (i2c.h)(0x5C484F56)
 I (font8x8.h)(0x5C4CBDAF)
-F (.\I2C.c)(0x5C4CC23B)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\i2c.o --omf_browse .\objects\i2c.crf --depend .\objects\i2c.d)
+F (.\I2C.c)(0x5C4F7BB1)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\i2c.o --omf_browse .\objects\i2c.crf --depend .\objects\i2c.d)
 I (I2C.h)(0x5C484F56)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585BDE7A)
 I (C:\PrzydatneProgramy\Keil\ARM\ARMCC\include\stdint.h)(0x54C29A18)
@@ -77,7 +77,7 @@ I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm0plus
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmInstr.h)(0x55099064)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmFunc.h)(0x55099064)
 I (C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x56447F0A)
-F (.\stml75.c)(0x5C4CD072)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\stml75.o --omf_browse .\objects\stml75.crf --depend .\objects\stml75.d)
+F (.\stml75.c)(0x5C4F751C)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\stml75.o --omf_browse .\objects\stml75.crf --depend .\objects\stml75.d)
 I (stml75.h)(0x5C4CC9BA)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585BDE7A)
 I (C:\PrzydatneProgramy\Keil\ARM\ARMCC\include\stdint.h)(0x54C29A18)
@@ -97,14 +97,15 @@ I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm0plus
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmInstr.h)(0x55099064)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmFunc.h)(0x55099064)
 I (C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x56447F0A)
-F (.\LPS331AP.c)(0x5C4CDD78)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\lps331ap.o --omf_browse .\objects\lps331ap.crf --depend .\objects\lps331ap.d)
-I (LPS331AP.h)(0x5C4CDE55)
+F (.\LPS331AP.c)(0x5C4F7D0E)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\lps331ap.o --omf_browse .\objects\lps331ap.crf --depend .\objects\lps331ap.d)
+I (LPS331AP.h)(0x5C4CEC12)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585BDE7A)
 I (C:\PrzydatneProgramy\Keil\ARM\ARMCC\include\stdint.h)(0x54C29A18)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm0plus.h)(0x55099064)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmInstr.h)(0x55099064)
 I (C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmFunc.h)(0x55099064)
 I (C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x56447F0A)
+I (I2C.h)(0x5C484F56)
 F (RTE\Device\MKL25Z128xxx4\startup_MKL25Z4.s)(0x5C33C0F7)(--cpu Cortex-M0+ --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include--pd "__UVISION_VERSION SETA 515" --pd "_RTE_ SETA 1" --pd "MKL25Z128xxx4 SETA 1"--list .\listings\startup_mkl25z4.lst --xref -o .\objects\startup_mkl25z4.o --depend .\objects\startup_mkl25z4.d)
 F (RTE\Device\MKL25Z128xxx4\system_MKL25Z4.c)(0x56447F0A)(-c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I C:\Users\Marek\Documents\GitHub\SMP5\RTE-I C:\Users\Marek\Documents\GitHub\SMP5\RTE\Device\MKL25Z128xxx4-I C:\PrzydatneProgramy\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\PrzydatneProgramy\Keil\ARM\PACK\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DMKL25Z128xxx4-o .\objects\system_mkl25z4.o --omf_browse .\objects\system_mkl25z4.crf --depend .\objects\system_mkl25z4.d)
 I (C:\PrzydatneProgramy\Keil\ARM\ARMCC\include\stdint.h)(0x54C29A18)

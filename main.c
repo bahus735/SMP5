@@ -26,15 +26,17 @@ uint8_t recived=0x00 ;
 
 int main(void){
 	I2C_int();
-	InitLED();
-	spi0_Init();
-	Int_EP();
-	Display_init(IMAGE_RED,IMAGE_BLACK, Font24_size,Font24_Table,AGH_logo,AGH_logo_Size);
+	LPS331AP_Init();
+//	LPS331AP_Init();
+//	InitLED();
+//	spi0_Init();
+//	Int_EP();
+//	Display_init(IMAGE_RED,IMAGE_BLACK, Font24_size,Font24_Table,AGH_logo,AGH_logo_Size);
 	
 	
-//	stml75_Set_Temp();
+//  	stml75_Set_Temp();
 //	DisplayFrame_EP(IMAGE_BLACK, IMAGE_RED);
-//	Sleep_EP();
+// 	Sleep_EP();
 //	data=  stml75_Read_Temp();
 //		 tempbin=0x120;
 
@@ -95,10 +97,8 @@ int main(void){
 //if()
 	
 while(1){
-//DCon();
-//	mywait(1);
-//	DCoff();
-//	mywait(1);
+//Display_init(IMAGE_RED,IMAGE_BLACK, Font24_size,Font24_Table,AGH_logo,AGH_logo_Size);
+//mywait(500);
 }
 }
 ///tesrtewrt

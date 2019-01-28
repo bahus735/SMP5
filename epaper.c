@@ -84,14 +84,14 @@ const uint8_t lut_red1[] =
 
 void Int_EP(void){
 
-	PORTC_PCR9=PORT_PCR_MUX(0x1);										//set as GPIO. This is PCR3 EPAPER_RST pin
-	PORTC_PCR3=PORT_PCR_MUX(0x1);										//set as GPIO. This is PCR3 EPAPER_BUSY pin
-	PORTC_PCR8=PORT_PCR_MUX(0x1);										//set as GPIO. This is PCR3 EPAPER_DC pin
+	PORTC_PCR9=PORT_PCR_MUX(0x1);										//set as GPIO. This is PCR9 EPAPER_RST pin
+	PORTC_PCR3=PORT_PCR_MUX(0x1);										//set as GPIO. This is PCR3 EPAPER_DC pin
+	PORTC_PCR8=PORT_PCR_MUX(0x1);										//set as GPIO. This is PCR8 EPAPER_BUSY pin
 	PTC->PDDR|= (EPAPER_RST)|(EPAPER_DC);						//setting output for control pins of e-paper
 	PTC->PDDR&= ~EPAPER_BUSY;												//setting input for EPAPER_BUSY pin
 
 	DCon();																					//set DC high						
-//SSon();																					//set SS high
+  SSon();																					//set SS high
 	RSTon();																				//set reset high
 	
 	Reset_EP();																			//reset the epapaer module
@@ -135,9 +135,9 @@ void Int_EP(void){
 	SendData_EP(0x0E);															//send data..
 	SetLutBw_EP();																	//send LUT data for black
 	SetLutRed_EP();																	//send LUT data for red
-	//SendCommand_EP(DISPLAY_REFRESH);
-	//WaitUntilIdle_EP();	
-	//SendCommand_EP(DISPLAY_REFRESH);
+//	SendCommand_EP(DISPLAY_REFRESH);
+//	WaitUntilIdle_EP();	
+//	SendCommand_EP(DISPLAY_REFRESH);
 }
 
 /*********************************************************************************
