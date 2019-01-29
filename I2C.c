@@ -37,13 +37,15 @@ void i2c_EnterTxMode( ){
 }
 
 void i2c_Start( ){	
-	I2C1->C1 |= I2C_C1_MST_MASK;		//set as master
+	I2C1->C1 |= I2C_C1_MST_MASK	;	//set as master
+
 }
 
 
 void i2c_Stop( ){
 			I2C1->C1 &= ~I2C_C1_MST_MASK;			//enter slave mode
 			I2C1->C1 &= ~I2C_C1_TX_MASK;		//set reciver mode
+		  I2C1->C1|=I2C_C1_IICEN_MASK;		//enable interupt
 }
 
 
@@ -71,32 +73,22 @@ uint8_t i2c_ReadByte( ){
 void i2c_WriteRegister( uint8_t SlaveAddress,uint8_t RegisterAddress, uint8_t data){
 	//uint8_t res = 0;
 
-	i2c_Start();
-	i2c_WriteByte( ((SlaveAddress ) | I2C_WRITE));
+	i2c_EnterTxMode();
+	i2c_EnableAck( );
+	i2c_Start( );
+
+	i2c_WriteByte(SlaveAddress|I2C_WRITE);
 	i2c_Wait();
 
 	i2c_WriteByte(RegisterAddress);
 	i2c_Wait();
-
 	i2c_WriteByte(data);
 	i2c_Wait();
-
 	i2c_Stop();
+//	i2c_Wait();
 
-	mywait(50);
 
-	/*
-	i2c_RepeatedStart(i2c);
-	i2c_WriteByte(i2c, ((SlaveAddress << 1) | I2C_READ));
-	i2c_Wait(i2c);
-	i2c_EnterRxMode(i2c);
-	i2c_DisableAck(i2c);
-	res = i2c_ReadByte(i2c);
-	i2c_Wait(i2c);
-	i2c_Stop(i2c);
-	res = i2c_ReadByte(i2c);
-	delay(50);
-	return res;*/
+
 }
 
 void i2c_SetPointer( uint8_t SlaveAddress,uint8_t Pointer){
@@ -130,29 +122,28 @@ void i2c_SetPointer( uint8_t SlaveAddress,uint8_t Pointer){
 
 uint8_t i2c_ReadRegister( uint8_t SlaveAddress,uint8_t RegisterAddress){
 	uint8_t res = 0;
-
+	uint8_t res2 = 0;
+	i2c_EnterTxMode();
+	i2c_EnableAck( );
 	i2c_Start();
 	i2c_WriteByte(((SlaveAddress ) | I2C_WRITE));
 	i2c_Wait();
 
-	i2c_WriteByte(RegisterAddress<<1);
+	i2c_WriteByte(RegisterAddress);
 	i2c_Wait();
 
 	i2c_RepeatedStart();
-
 	i2c_WriteByte( ((SlaveAddress ) | I2C_READ));
 	i2c_Wait();
-
 	i2c_EnterRxMode();
 	i2c_DisableAck();
-
 	res = i2c_ReadByte();
 	i2c_Wait();
 	i2c_Stop();
-	res = i2c_ReadByte();
-	mywait(50);
+	res2 = i2c_ReadByte();
+//	i2c_Wait();
 
-	return res;
+	return res2;
 }
 
 

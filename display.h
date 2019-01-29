@@ -3,6 +3,8 @@
 #include "epaper.h"
 #include "MKL25Z4.h"
 #include "stml75.h"
+#include "HTS221.h"
+#include "LPS331AP.h"
 void Display_init(uint8_t*Buffor_Red,uint8_t*Buffor_Black,const uint8_t*Font24_size,const uint8_t*Font24_Table,const uint8_t *AGH_logo,const uint8_t* AGH_logo_Size);
 void Display_tempe(uint8_t*Buffor_Red,uint8_t*Buffor_Black,const uint8_t*Font24_size,const uint8_t*Font24_Table,char *temper);
 

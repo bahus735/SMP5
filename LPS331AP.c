@@ -14,17 +14,29 @@ void LPS331AP_Init(void){
 	i2c_Start( );
 	i2c_WriteByte(0xBA|I2C_WRITE);
 	i2c_Wait();
-	i2c_WriteByte(0x20);
+	i2c_WriteByte(LPS331_CTRL_REG1);
 	i2c_Wait();
-	i2c_WriteByte(0x40);
+	i2c_WriteByte(0x00);
 	i2c_Wait();
-  i2c_RepeatedStart();
+//	i2c_Stop();
+	
+	
+	i2c_RepeatedStart();
 	i2c_WriteByte(0xBA|I2C_WRITE);
 	i2c_Wait();
-	i2c_WriteByte(0x21);
+	i2c_WriteByte(0x10);
 	i2c_Wait();
-	i2c_WriteByte(0x84);
+	i2c_WriteByte(0x6A);
 	i2c_Wait();
+	
+	i2c_RepeatedStart();
+	i2c_WriteByte(0xBA|I2C_WRITE);
+	i2c_Wait();
+	i2c_WriteByte(0x20);
+	i2c_Wait();
+	i2c_WriteByte(0xF4);
+	i2c_Wait();
+
 	i2c_Stop();
 
 
@@ -32,9 +44,9 @@ void LPS331AP_Init(void){
 }
 
 
-uint16_t  LPS331AP_Read_Press(void){
-	uint16_t dummy=0;
-	uint16_t data=0;
+uint32_t  LPS331AP_Read_Press(void){
+	uint32_t dummy=0;
+	uint16_t data0=0;
 	uint16_t data1=0;
 	uint8_t data2=0;
 
@@ -43,7 +55,7 @@ uint16_t  LPS331AP_Read_Press(void){
 	i2c_Start( );
 	i2c_WriteByte(0xBA|I2C_WRITE);
 	i2c_Wait();
-	i2c_WriteByte(0x89);
+	i2c_WriteByte(0x28|0x80);
 	i2c_Wait();
 
 	i2c_RepeatedStart();
@@ -53,16 +65,56 @@ uint16_t  LPS331AP_Read_Press(void){
 	dummy=i2c_ReadByte( );
 	i2c_Wait();
 	i2c_EnableAck( );
+	
+	data0=i2c_ReadByte( );
+	//data1=data;
+	i2c_Wait();
 	i2c_DisableAck();
-	data=i2c_ReadByte( )<<8;
-	data1=data;
+
+	data1=i2c_ReadByte( );
 	i2c_Wait();
-	
 	i2c_Stop();
-	data|=i2c_ReadByte( );
-	data2=data;
+	data2=i2c_ReadByte( );
 	i2c_Wait();
-	
+//	i2c_Stop();
+//	i2c_Wait();
+	dummy=(data0|(data1<<8)|(data2<<16));
 return (dummy);
 }
+
+void LPS331AP_Set_Press(){
+	uint32_t pressbin=0;
+	uint32_t temp=0;
+	pressbin= LPS331AP_Read_Press()/4096;
+	
+
+
+			press[3]=(pressbin)%10+ASCII_OFFSET;
+			temp=(pressbin)/10;
+			press[2]=(temp)%10+ASCII_OFFSET;
+			temp=(temp)/10;
+			press[1]=(temp)%10+ASCII_OFFSET;
+			temp=(temp)/10;
+			press[0]=(temp)%10+ASCII_OFFSET;
+			temp=(temp)/10;
+	
+	
+
+	press[4]='m';
+	press[5]='b';
+	Display_press(IMAGE_RED,IMAGE_BLACK, Font24_size, Font24_Table, press);
+}
+
+
+
+char  press[] =
+	{
+		'1',
+		'2',
+		'3',
+		'4',
+		'5',
+		'6',
+		'\0',
+  };
 

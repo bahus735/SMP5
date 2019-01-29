@@ -1,10 +1,10 @@
 #include "leds.h"
-#include "MKL25Z4.h"
-
 
 const uint32_t green_mask= 1UL<<19;				
 const uint32_t red_mask= 1UL<<18;
 const uint32_t blue_mask= 1UL<<1;
+
+
 
 void InitLED(void){
 SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK;

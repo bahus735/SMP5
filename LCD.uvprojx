@@ -472,6 +472,16 @@
               <FileType>1</FileType>
               <FilePath>.\LPS331AP.c</FilePath>
             </File>
+            <File>
+              <FileName>HTS221.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HTS221.c</FilePath>
+            </File>
+            <File>
+              <FileName>PIT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\PIT.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

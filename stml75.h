@@ -7,7 +7,8 @@
 #include "epaper.h"
 #include "font8x8.h"
 
-#define STML75_TEMP_REG_ADDR 		0x00
+#define STML75_TEMP_REG_ADDR_L 		0x00
+#define STML75_TEMP_REG_ADDR_H 		0x01
 #define STML75_HIST_REG_ADDR 		0x05
 #define STML75_SDOW_REG_ADDR		0x07
 #define STML75_ADDR							0x90
