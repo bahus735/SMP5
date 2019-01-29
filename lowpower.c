@@ -4,7 +4,7 @@
 
 void lowPowerInitialize(void){
 	/*Configure Low Leakage Wakeup Unit (LLWU)*/
-	LLWU->ME = LLWU_ME_WUME0_MASK; /*Select LPTMR as a source of wakeup. Module 0 i.e. LPTMR in KL46 is selected*/
+	LLWU->ME = LLWU_ME_WUME0_MASK; /*Select LPTMR as a source of wakeup. Module 0 i.e. LPTMR in KL25 is selected*/
 	
 	/*Configure pin PTC3 to wake-up processor*/
 	LLWU->PE2=LLWU_PE2_WUPE7(1); /*Pin PTC3 is llwu pin 7 source (LLWU_P7) in KL46. Configure field WUPE7 in register PE2 as 1 for rising edge wake-up*/
